@@ -6,9 +6,9 @@ type dataProps = {
 }
 
 
-export const fetchQuestions =async()=>{
+export const fetchQuestions =async(amount=10, category=9)=>{
     try {
-        const response = await fetch('https://opentdb.com/api.php?amount=10&type=multiple')
+        const response = await fetch(`https://opentdb.com/api.php?amount=${amount}&category=${category}&type=multiple`)
         if(!response.ok) {
             throw new Error;
         }
@@ -32,4 +32,11 @@ export const fetchQuestions =async()=>{
     const textarea = document.createElement('textarea');
     textarea.innerHTML = str;
     return textarea.value
+  }
+
+  export const fetchCategories = async()=>{
+    const response = await fetch('https://opentdb.com/api_category.php')
+    const data = await response.json()
+    console.log(data)
+    return data.trivia_categories
   }
